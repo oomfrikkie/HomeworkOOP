@@ -1,15 +1,16 @@
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class GamingPc
 {
     private Motherboard motherboard;
-    private List<Game> games;
+
 
     public GamingPc( Motherboard motherboard )
     {
         this.motherboard = motherboard;
-        this.games = new ArrayList<>();
+
     }
 
     public Motherboard getMotherboard()
@@ -22,27 +23,38 @@ public class GamingPc
         this.motherboard = motherboard;
     }
 
-    public List<Game> getGames()
+    public void installGame( Game game )
     {
-        return this.games;
+        if( this.motherboard.getTotalVram() < game.getVramRequired())
+        {
+            throw new RuntimeException("Not enough VRAM to install " + game.getTitle());
+        }
+
+            for (Ssd ssd : this.motherboard.getSsds())
+            {
+                if (ssd.getAvailableCapactity() >= game.getStorageRequired())
+                {
+                    ssd.addInstalledGame(game);
+                    return;
+                }
+            }
+
+
+      throw new RuntimeException("Not enough space for " + game.getTitle());
     }
 
-    public void setGames( List<Game> games )
+    public void uninstallGame( Game game)
     {
-        this.games = games;
-    }
+        for( Ssd ssd : this.motherboard.getSsds() )
+        {
+            if(ssd.getInstalledGames().contains( game ))
+            {
+                ssd.removeInstalledGame( game );
+                return;
+            }
+        }
 
-    public void installGame( Game game)
-    {
-        if( game.getStorageRequired() < motherboard.getTotalAvailableSpace() )
-        {
-            this.games.add( game );
-            motherboard.decreaseTotalAvailableSpace( game.getStorageRequired() );
-        }
-        else
-        {
-            throw new RuntimeException("Not enough Storage");
-        }
+        throw new RuntimeException("Game not found");
     }
 
 

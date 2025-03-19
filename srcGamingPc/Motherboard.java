@@ -116,6 +116,7 @@ public class Motherboard
             {
                 iterator.remove();
                 this.availableSlots += ssd.getSlotSpace();
+                totalAvailableSpace -= ssd.getMaxCapicity();
                 break;
             }
         }
@@ -136,6 +137,10 @@ public class Motherboard
        if(this.availableSlots >= soundcard.getSlotSpace())
        {
            this.soundcards.add( soundcard );
+       }
+       else
+       {
+           throw new RuntimeException("Not enough slots to install soundCard");
        }
     }
 
@@ -174,13 +179,6 @@ public class Motherboard
         }
 
         return totalAvailableSpace;
-    }
-
-    // FIX THE SSD ISSUE PLEASE BRO I BEG < I KNOW YOURE HIGH BUT JUST DO IT PLEASE
-
-    public void decreaseTotalAvailableSpace( int spaceToBeRemoved )
-    {
-        this.totalAvailableSpace -= spaceToBeRemoved;
     }
 
     public int getTotalVram()
