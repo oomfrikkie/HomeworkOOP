@@ -1,11 +1,4 @@
-import org.junit.jupiter.api.BeforeEach;
-
-import static org.junit.jupiter.api.Assertions.*;
-
-class GamingPcTest
-{
-
-    private GamingPc testPc;
+S    private GamingPc testPc;
     private Motherboard testmobo;
     private Game testgame;
     private Ssd testSsd;
