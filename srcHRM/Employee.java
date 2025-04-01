@@ -9,14 +9,16 @@ public class Employee
     private LocalDate dateOfHire;
 
     private boolean hasGoodPerformance;
-    
+    private boolean hasTaxCredit;
+    private boolean hasInsurance;
+
 
     public Employee( String name, int employeeNumber, LocalDate dateOfBirth, LocalDate dateOfHire )
     {
-         this.name = name;
-         setEmployeeNumber( employeeNumber );
-         setDateOfBirth( dateOfBirth );
-         setDateOfHire( dateOfHire );
+        this.name = name;
+        setEmployeeNumber( employeeNumber );
+        setDateOfBirth( dateOfBirth );
+        setDateOfHire( dateOfHire );
     }
 
     public String getName()
@@ -60,7 +62,7 @@ public class Employee
         }
         else
         {
-            throw new IllegalArgumentException("Date of birth cannot be same date or after the current date")
+            throw new IllegalArgumentException("Date of birth cannot be same date or after the current date");
         }
     }
 
@@ -111,10 +113,56 @@ public class Employee
         return baseVacationDays;
     }
 
-    public int getSalary()
+    public double getGrossSalary()
     {
-        int baseSalary = 1500;
+        double baseSalary = 1500;
+        int yearsWorked = getYearsOfService();
 
+        for(int i = 0; i < yearsWorked ; i++)
+        {
+            if(this.hasGoodPerformance)
+            {
+                baseSalary *= 1.023;
+            }
+        }
 
+        return baseSalary;
+    }
+
+    public double getAnnualGrossSalary()
+    {
+        return this.getGrossSalary() * 12;
+    }
+
+    public double getNetSalary()
+    {
+
+        double netSalary = this.getGrossSalary();
+
+        if(this.hasTaxCredit)
+        {
+            netSalary -= ( netSalary * 0.1);
+        }
+        else
+        {
+            netSalary -= ( netSalary * 0.15);
+        }
+
+        if(hasInsurance)
+        {
+            netSalary -= (netSalary * 0.01);
+        }
+
+        return netSalary;
+    }
+
+    public double getAnnualNetSalary()
+    {
+        return this.getNetSalary() * 12;
+    }
+
+    public double get13thMonthBonus()
+    {
+        return this.getAnnualGrossSalary() * 0.08;
     }
 }
