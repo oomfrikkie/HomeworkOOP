@@ -60,7 +60,7 @@ public class Workout
         int lastEndTime = 0;
         int totalBreakTime = 0;
 
-        for(Activity a : this.activities)
+        for(Activity a : this.activities) //a is allowed??
         {
             if(a.getStartTimeInSeconds() > lastEndTime)
             {
@@ -82,7 +82,7 @@ public class Workout
         }
         int totalWorkoutTime = 0;
 
-        for (Activity a : this.activities)
+        for (Activity a : this.activities) // "a" is allowed??
         {
             totalWorkoutTime += a.getLengthInSeconds();
         }
@@ -126,7 +126,7 @@ public class Workout
         }
     }
 
-    public String getDescription()
+    public String getDescription() // is this what was wanted??
     {
         StringBuilder description = new StringBuilder();
 

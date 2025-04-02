@@ -44,7 +44,7 @@ class WorkoutTest
 
       this.testWorkout.addActivity( new Activity( "Test Activity" , 55, 10));
 
-      assertEquals(result, this.testWorkout.getActivities().size()); // can also do assertNotThrows
+      assertEquals(result, this.testWorkout.getActivities().size()); // can also do assertNotThrows?
     }
 
     @Test
