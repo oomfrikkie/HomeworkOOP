@@ -9,7 +9,7 @@ public class Column
 
     public Column( String title )
     {
-        this.tickets = tickets;
+        this.title = title;
         this.tickets = new ArrayList<>();
     }
 
@@ -65,6 +65,8 @@ public class Column
             }
         }
     }
+
+
 
 
 
